@@ -14,13 +14,16 @@
   <body>
     <div class="container">
       <main>
-        <header>
-          <label for="search">Search for a recipe:</label>
-          <input type="text" name="search" id="search" />
+        <div class="search-container">
+          <form id="submit">
+            <label for="search">Search for a recipe:</label>
+            <input type="text" name="search" id="search" />
+            <button type="submit" class="search-btn">Search</button>
+          </form>
           <button class="btn" id="random-btn">Random</button>
-        </header>
-        <div id="output" class="swiper-container">
-          <div class="swiper-wrapper">
+        </div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper" id="output">
             <div class="image-container swiper-slide">
               <img src="./images/cayla1-w6ftFbPCs9I-unsplash.jpg" alt="test" />
             </div>
