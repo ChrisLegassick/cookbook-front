@@ -44,4 +44,11 @@ img {
 .swiper-slide {
   width: 200px;
   height: 350px;
+  background-color: lightblue;
+}
+
+.recipe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
