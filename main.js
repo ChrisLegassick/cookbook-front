@@ -60,6 +60,12 @@ function getRandomRecipe() {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      const recipe = data.data[0];
+      recipeOutput.innerHTML = `
+          <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
+            <p>${recipe.name}</p>
+          </div>
+        `;
     });
 }
 
