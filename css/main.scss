@@ -8,9 +8,10 @@ body {
   padding: 0;
   margin: 0;
   background-color: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  position: relative;
 }
 
 .container {
@@ -50,5 +51,29 @@ img {
 .recipe {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.recipe-overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #333333;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.single-recipe-container {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 }

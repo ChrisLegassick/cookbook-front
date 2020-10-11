@@ -3,9 +3,26 @@ const submit = document.getElementById('submit');
 const random = document.getElementById('random-btn');
 const recipeHeading = document.getElementById('recipe-heading');
 const recipeOutput = document.getElementById('recipe-output');
+const singleRecipeOutput = document.getElementById('single-recipe-output');
+const recipeOverlay = document.getElementById('recipe-overlay');
 
 submit.addEventListener('submit', searchRecipe);
 random.addEventListener('click', getRandomRecipe);
+recipeOutput.addEventListener('click', e => {
+  const path = e.path || (e.composedPath && e.composedPath());
+  const recipe = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('recipe');
+    } else {
+      return false;
+    }
+  });
+
+  if (recipe) {
+    const recipeID = recipe.getAttribute('data-recipeid');
+    getRecipeById(recipeID);
+  }
+});
 
 function getAllRecipes() {
   fetch('https://legassick-recipes.herokuapp.com/api/v1/recipes')
@@ -67,6 +84,33 @@ function getRandomRecipe() {
           </div>
         `;
     });
+}
+
+function getRecipeById(recipeID) {
+  fetch(`https://legassick-recipes.herokuapp.com/api/v1/recipes/${recipeID}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      const recipe = data.data;
+      singleRecipeOutput.innerHTML = `
+        <div class="single-recipe">
+          <p>${recipe.name}</p>
+          <p>Ingredients:</p>
+          <ul>
+            ${recipe.ingredients
+              .map(ingredient => `<li>${ingredient}</li>`)
+              .join('')}
+          </ul>
+          <p>Instructions:</p>
+          <ul>
+            ${recipe.instructions
+              .map(instruction => `<li>${instruction}</li>`)
+              .join('')}
+          </ul>
+        </div>
+      `;
+    });
+  recipeOverlay.classList.remove('hide');
 }
 
 function initSwiper() {
