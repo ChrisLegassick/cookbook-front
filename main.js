@@ -76,6 +76,7 @@ function initSwiper() {
     centeredSlides: true,
     slidesPerView: 'auto',
     loop: true,
+    observer: true,
     coverflowEffect: {
       rotate: 50,
       stretch: 0,
