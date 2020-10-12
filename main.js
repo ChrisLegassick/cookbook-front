@@ -5,6 +5,7 @@ const recipeHeading = document.getElementById('recipe-heading');
 const recipeOutput = document.getElementById('recipe-output');
 const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
+const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
 function initSwiper() {
   const swiper = new Swiper('.swiper-container', {
@@ -54,12 +55,12 @@ singleRecipeOutput.addEventListener('click', e => {
   });
 
   if (backBtn) {
-    closeSingleRecipe();
+    recipeOverlay.classList.add('hide');
   }
 });
 
 function getAllRecipes() {
-  fetch('https://legassick-recipes.herokuapp.com/api/v1/recipes')
+  fetch(URL)
     .then(res => res.json())
     .then(data => {
       const recipe = data.data;
@@ -82,7 +83,7 @@ getAllRecipes();
 function searchRecipe(e) {
   e.preventDefault();
   const value = search.value;
-  fetch(`https://legassick-recipes.herokuapp.com/api/v1/recipes?name=${value}`)
+  fetch(URL + `?name=${value}`)
     .then(res => res.json())
     .then(data => {
       const recipe = data.data;
@@ -107,10 +108,9 @@ function searchRecipe(e) {
 }
 
 function getRandomRecipe() {
-  fetch('https://legassick-recipes.herokuapp.com/api/v1/recipes/random')
+  fetch(URL + '/random')
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       const recipe = data.data[0];
       recipeOutput.innerHTML = `
           <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
@@ -121,10 +121,9 @@ function getRandomRecipe() {
 }
 
 function getRecipeById(recipeID) {
-  fetch(`https://legassick-recipes.herokuapp.com/api/v1/recipes/${recipeID}`)
+  fetch(URL + `/${recipeID}`)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       const recipe = data.data;
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe">
@@ -146,8 +145,4 @@ function getRecipeById(recipeID) {
       `;
     });
   recipeOverlay.classList.remove('hide');
-}
-
-function closeSingleRecipe() {
-  recipeOverlay.classList.add('hide');
 }
