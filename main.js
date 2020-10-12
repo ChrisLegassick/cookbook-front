@@ -6,8 +6,27 @@ const recipeOutput = document.getElementById('recipe-output');
 const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
 
+function initSwiper() {
+  const swiper = new Swiper('.swiper-container', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: true,
+    observer: true,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true
+    }
+  });
+}
+
 submit.addEventListener('submit', searchRecipe);
 random.addEventListener('click', getRandomRecipe);
+
 recipeOutput.addEventListener('click', e => {
   const path = e.path || (e.composedPath && e.composedPath());
   const recipe = path.find(item => {
@@ -21,6 +40,21 @@ recipeOutput.addEventListener('click', e => {
   if (recipe) {
     const recipeID = recipe.getAttribute('data-recipeid');
     getRecipeById(recipeID);
+  }
+});
+
+singleRecipeOutput.addEventListener('click', e => {
+  const path = e.path || (e.composedPath && e.composedPath());
+  const backBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('back-btn');
+    } else {
+      return false;
+    }
+  });
+
+  if (backBtn) {
+    closeSingleRecipe();
   }
 });
 
@@ -94,6 +128,7 @@ function getRecipeById(recipeID) {
       const recipe = data.data;
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe">
+          <button class="back-btn" id="back-btn">Go Back</button>
           <p>${recipe.name}</p>
           <p>Ingredients:</p>
           <ul>
@@ -113,20 +148,6 @@ function getRecipeById(recipeID) {
   recipeOverlay.classList.remove('hide');
 }
 
-function initSwiper() {
-  const swiper = new Swiper('.swiper-container', {
-    effect: 'coverflow',
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 'auto',
-    loop: true,
-    observer: true,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true
-    }
-  });
+function closeSingleRecipe() {
+  recipeOverlay.classList.add('hide');
 }
