@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      src="https://kit.fontawesome.com/33c0582fe1.js"
+      crossorigin="anonymous"
+    ></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -17,9 +21,16 @@
         <h1>Recipe App</h1>
         <div class="search-container">
           <form id="submit">
-            <label for="search">Search for a recipe:</label>
-            <input type="text" name="search" id="search" />
-            <button type="submit" class="search-btn">Search</button>
+            <!-- <label for="search">Search for a recipe:</label> -->
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Search for a recipe..."
+            />
+            <button type="submit" class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
           </form>
           <button class="btn" id="random-btn">Random</button>
         </div>

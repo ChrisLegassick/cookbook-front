@@ -38,12 +38,13 @@ body {
 
 main {
   height: 100%;
+  background-color: #f5f5f5;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
       grid-template-columns: auto;
-  -ms-grid-rows: (1fr)[10];
-      grid-template-rows: repeat(10, 1fr);
+  -ms-grid-rows: (1fr)[12];
+      grid-template-rows: repeat(12, 1fr);
 }
 
 main h1 {
@@ -56,6 +57,22 @@ main h1 {
   -ms-grid-row: 3;
       grid-row-start: 3;
   padding: 2rem;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+form input[type='text'] {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
 }
 
 .recipe-heading {
@@ -76,7 +93,7 @@ img {
   width: 100%;
   -ms-grid-row: 5;
       grid-row-start: 5;
-  grid-row-end: 9;
+  grid-row-end: 10;
 }
 
 .swiper-slide {
