@@ -7,23 +7,23 @@ const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
 const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
-function initSwiper() {
-  const swiper = new Swiper('.swiper-container', {
-    effect: 'coverflow',
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 'auto',
-    loop: true,
-    observer: true,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true
-    }
-  });
-}
+const swiper = new Swiper('.swiper-container', {
+  init: false,
+  effect: 'coverflow',
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: 'auto',
+  loop: true,
+  observer: true,
+  watchOverflow: true,
+  coverflowEffect: {
+    rotate: 50,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    slideShadows: true
+  }
+});
 
 submit.addEventListener('submit', searchRecipe);
 random.addEventListener('click', getRandomRecipe);
@@ -74,7 +74,8 @@ function getAllRecipes() {
         `
         )
         .join('');
-      initSwiper();
+      swiper.params.loopedSlides = `${recipe.length}`;
+      swiper.init();
     });
 }
 
@@ -93,6 +94,8 @@ function searchRecipe(e) {
       } else {
         recipeHeading.innerHTML = `<p>${recipe.length} results found for "${value}"</p>`;
 
+        swiper.removeAllSlides();
+
         recipeOutput.innerHTML = recipe
           .map(
             recipe => `
@@ -102,6 +105,7 @@ function searchRecipe(e) {
         `
           )
           .join('');
+        swiper.params.loopedSlides = `${recipe.length}`;
       }
       search.value = '';
     });
@@ -118,6 +122,7 @@ function getRandomRecipe() {
           </div>
         `;
     });
+  recipeHeading.innerHTML = '';
 }
 
 function getRecipeById(recipeID) {
