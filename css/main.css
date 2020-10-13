@@ -73,6 +73,7 @@ form input[type='text'] {
   border-radius: 5px;
   border: none;
   background-color: #fff;
+  font-size: 16px;
 }
 
 .recipe-heading {
