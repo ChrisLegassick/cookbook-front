@@ -23,6 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
 main {
@@ -122,7 +123,7 @@ img {
 }
 
 .recipe-overlay {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
