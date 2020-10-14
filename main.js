@@ -1,3 +1,4 @@
+const mainContent = document.getElementById('main-content');
 const search = document.getElementById('search');
 const submit = document.getElementById('submit');
 const random = document.getElementById('random-btn');
@@ -56,6 +57,7 @@ singleRecipeOutput.addEventListener('click', e => {
 
   if (backBtn) {
     recipeOverlay.classList.add('hide');
+    mainContent.classList.remove('hide');
   }
 });
 
@@ -135,22 +137,27 @@ function getRecipeById(recipeID) {
       const recipe = data.data;
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe">
-          <button class="back-btn" id="back-btn">Go Back</button>
-          <h2>${recipe.name}</h2>
-          <p>Ingredients:</p>
-          <ul>
-            ${recipe.ingredients
-              .map(ingredient => `<li>${ingredient}</li>`)
-              .join('')}
-          </ul>
-          <p>Instructions:</p>
-          <ul>
-            ${recipe.instructions
-              .map(instruction => `<li>${instruction}</li>`)
-              .join('')}
-          </ul>
+          <div class="single-recipe-heading">
+            <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Go Back</button>
+            <h2>${recipe.name}</h2>
+          </div>
+          <div class="single-recipe-content">
+            <p>Ingredients:</p>
+            <ul>
+              ${recipe.ingredients
+                .map(ingredient => `<li>${ingredient}</li>`)
+                .join('')}
+            </ul>
+            <p>Instructions:</p>
+            <ul>
+              ${recipe.instructions
+                .map(instruction => `<li>${instruction}</li>`)
+                .join('')}
+            </ul>
+          </div>
         </div>
       `;
     });
   recipeOverlay.classList.remove('hide');
+  mainContent.classList.add('hide');
 }
