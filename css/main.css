@@ -45,8 +45,8 @@ main {
   display: grid;
   -ms-grid-columns: auto;
       grid-template-columns: auto;
-  -ms-grid-rows: calc(12 * 1fr);
-      grid-template-rows: calc(12 * 1fr);
+  -ms-grid-rows: (1fr)[12];
+      grid-template-rows: repeat(12, 1fr);
 }
 
 main h1 {
@@ -67,7 +67,7 @@ main h1 {
           justify-content: space-between;
 }
 
-.search-container form {
+form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -80,7 +80,7 @@ main h1 {
           flex-grow: 1;
 }
 
-.search-container form input[type='text'] {
+input[type='text'] {
   padding: 0.7rem;
   border-radius: 5px;
   border: none;
@@ -91,7 +91,7 @@ main h1 {
           flex-grow: 1;
 }
 
-.search-container form .search-btn {
+.search-btn {
   border: none;
   background: none;
   padding: 0.7rem;
@@ -100,7 +100,7 @@ main h1 {
   font-size: 16px;
 }
 
-.search-container .random-btn {
+.random-btn {
   margin-left: 10px;
   padding: 0.7rem;
   font-size: 16px;
