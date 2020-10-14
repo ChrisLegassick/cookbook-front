@@ -69,7 +69,8 @@ function getAllRecipes() {
         .map(
           recipe => `
           <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
-            <p>${recipe.name}</p>
+            <h2>${recipe.name}</h2>
+            <p>Tap to view recipe</p>
           </div>
         `
         )
@@ -100,7 +101,8 @@ function searchRecipe(e) {
           .map(
             recipe => `
           <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
-            <p>${recipe.name}</p>
+            <h2>${recipe.name}</h2>
+            <p>Tap to view recipe</p>
           </div>
         `
           )
@@ -118,7 +120,8 @@ function getRandomRecipe() {
       const recipe = data.data[0];
       recipeOutput.innerHTML = `
           <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
-            <p>${recipe.name}</p>
+            <h2>${recipe.name}</h2>
+            <p>Tap to view recipe</p>
           </div>
         `;
     });
@@ -133,7 +136,7 @@ function getRecipeById(recipeID) {
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe">
           <button class="back-btn" id="back-btn">Go Back</button>
-          <p>${recipe.name}</p>
+          <h2>${recipe.name}</h2>
           <p>Ingredients:</p>
           <ul>
             ${recipe.ingredients
