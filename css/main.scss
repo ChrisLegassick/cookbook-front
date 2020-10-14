@@ -180,4 +180,5 @@ img {
   padding: 2rem;
   position: absolute;
   top: 30vh;
+  width: #{'min(max(300px, 100vw), 375px)'};
 }
