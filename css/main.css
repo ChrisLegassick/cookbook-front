@@ -45,8 +45,8 @@ main {
   display: grid;
   -ms-grid-columns: auto;
       grid-template-columns: auto;
-  -ms-grid-rows: (1fr)[12];
-      grid-template-rows: repeat(12, 1fr);
+  -ms-grid-rows: calc(12 * 1fr);
+      grid-template-rows: calc(12 * 1fr);
 }
 
 main h1 {

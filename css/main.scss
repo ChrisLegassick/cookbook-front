@@ -35,8 +35,7 @@ main {
   height: 100%;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: repeat(12, 1fr);
-
+  grid-template-rows: calc(12 * 1fr);
   h1 {
     text-align: center;
     grid-row-start: 2;
