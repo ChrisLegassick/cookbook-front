@@ -56,24 +56,55 @@ main h1 {
 .search-container {
   -ms-grid-row: 3;
       grid-row-start: 3;
-  padding: 2rem;
+  margin: 1rem 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-form {
+.search-container form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
-form input[type='text'] {
-  padding: 0.5rem;
+.search-container form input[type='text'] {
+  padding: 0.7rem;
   border-radius: 5px;
   border: none;
   background-color: #fff;
   font-size: 16px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.search-container form .search-btn {
+  border: none;
+  background: none;
+  padding: 0.7rem;
+  position: absolute;
+  right: 0;
+  font-size: 16px;
+}
+
+.search-container .random-btn {
+  margin-left: 10px;
+  padding: 0.7rem;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background: #fff;
 }
 
 .recipe-heading {

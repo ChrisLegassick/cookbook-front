@@ -41,19 +41,42 @@ main {
 
 .search-container {
   grid-row-start: 3;
-  padding: 2rem;
-}
-
-form {
+  margin: 1rem 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 
-  input[type='text'] {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: none;
-    background-color: #fff;
+  form {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    flex-grow: 1;
+
+    input[type='text'] {
+      padding: 0.7rem;
+      border-radius: 5px;
+      border: none;
+      background-color: #fff;
+      font-size: 16px;
+      flex-grow: 1;
+    }
+
+    .search-btn {
+      border: none;
+      background: none;
+      padding: 0.7rem;
+      position: absolute;
+      right: 0;
+      font-size: 16px;
+    }
+  }
+
+  .random-btn {
+    margin-left: 10px;
+    padding: 0.7rem;
     font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
   }
 }
 
