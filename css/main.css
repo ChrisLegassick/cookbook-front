@@ -112,6 +112,7 @@ main h1 {
 .recipe-heading {
   -ms-grid-row: 4;
       grid-row-start: 4;
+  text-align: center;
 }
 
 img {
@@ -155,6 +156,10 @@ img {
   border-radius: 5px;
 }
 
+.recipe h2::first-letter {
+  text-transform: uppercase;
+}
+
 .recipe p {
   font-weight: 300;
 }
@@ -178,10 +183,18 @@ img {
   padding: 2rem;
   background-color: #333333;
   color: #fff;
+  position: fixed;
+  top: 0;
+  width: min(max(300px, 100vw), 375px);
 }
 
 .single-recipe-heading h2 {
   text-align: center;
+  margin-top: 3rem;
+}
+
+.single-recipe-heading h2::first-letter {
+  text-transform: uppercase;
 }
 
 .single-recipe-heading .back-btn {
@@ -189,6 +202,7 @@ img {
   border: none;
   color: #fff;
   font-size: 16px;
+  padding: 0.7rem;
 }
 
 .single-recipe-heading .back-btn i {
@@ -200,5 +214,7 @@ img {
   margin-top: -30px;
   background: #f5f5f5;
   padding: 2rem;
+  position: absolute;
+  top: 30vh;
 }
 /*# sourceMappingURL=main.css.map */
