@@ -8,6 +8,8 @@ const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
 const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
+let loading = false;
+
 const swiper = new Swiper('.swiper-container', {
   init: false,
   effect: 'coverflow',
@@ -62,6 +64,8 @@ singleRecipeOutput.addEventListener('click', e => {
 });
 
 function getAllRecipes() {
+  loading = true;
+  loadingContent();
   fetch(URL)
     .then(res => res.json())
     .then(data => {
@@ -79,6 +83,7 @@ function getAllRecipes() {
         .join('');
       swiper.params.loopedSlides = `${recipe.length}`;
       swiper.init();
+      loading = false;
     });
 }
 
@@ -87,6 +92,8 @@ getAllRecipes();
 function searchRecipe(e) {
   e.preventDefault();
   const value = search.value;
+  loading = true;
+  loadingContent();
   fetch(URL + `?name=${value}`)
     .then(res => res.json())
     .then(data => {
@@ -110,12 +117,15 @@ function searchRecipe(e) {
           )
           .join('');
         swiper.params.loopedSlides = `${recipe.length}`;
+        loading = false;
       }
       search.value = '';
     });
 }
 
 function getRandomRecipe() {
+  loading = true;
+  loadingContent();
   fetch(URL + '/random')
     .then(res => res.json())
     .then(data => {
@@ -126,6 +136,7 @@ function getRandomRecipe() {
             <p>Tap to view recipe</p>
           </div>
         `;
+      loading = false;
     });
   recipeHeading.innerHTML = '';
 }
@@ -160,4 +171,10 @@ function getRecipeById(recipeID) {
     });
   recipeOverlay.classList.remove('hide');
   mainContent.classList.add('hide');
+}
+
+function loadingContent() {
+  if (loading === true) {
+    recipeOutput.innerHTML = '<p class="loading">Loading...</p>';
+  }
 }
