@@ -82,7 +82,7 @@ main h1 {
 
 .search-container form input[type='text'] {
   padding: 0.7rem;
-  border-radius: 5px;
+  border-radius: 10px 0 0 10px;
   border: none;
   background-color: #fff;
   font-size: 16px;
@@ -93,10 +93,8 @@ main h1 {
 
 .search-container form .search-btn {
   border: none;
-  background: none;
+  border-radius: 0 10px 10px 0;
   padding: 0.7rem;
-  position: absolute;
-  right: 0;
   font-size: 16px;
 }
 
@@ -105,7 +103,7 @@ main h1 {
   padding: 0.7rem;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   background: #fff;
 }
 
@@ -157,7 +155,7 @@ main h1 {
   text-align: center;
   padding: 1rem;
   background-color: lightblue;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .recipe h2::first-letter {
