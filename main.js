@@ -149,7 +149,7 @@ function getRecipeById(recipeID) {
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe">
           <div class="single-recipe-heading">
-            <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Go Back</button>
+            <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Back</button>
             <h2>${recipe.name}</h2>
           </div>
           <div class="single-recipe-content">

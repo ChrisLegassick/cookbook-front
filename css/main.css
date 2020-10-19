@@ -74,14 +74,13 @@ main h1 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  position: relative;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
 
 .search-container form input[type='text'] {
-  padding: 0.7rem;
+  padding-left: 0.7rem;
   border-radius: 10px 0 0 10px;
   border: none;
   background-color: #fff;

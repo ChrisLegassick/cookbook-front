@@ -51,11 +51,10 @@ main {
   form {
     display: flex;
     justify-content: center;
-    position: relative;
     flex-grow: 1;
 
     input[type='text'] {
-      padding: 0.7rem;
+      padding-left: 0.7rem;
       border-radius: 10px 0 0 10px;
       border: none;
       background-color: #fff;
