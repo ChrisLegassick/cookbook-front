@@ -45,12 +45,11 @@ main {
 .search-container {
   grid-row-start: 3;
   margin: 1rem 2rem;
-  display: flex;
+  // display: flex;
+  // justify-content: space-between;
 
   form {
     display: flex;
-    justify-content: center;
-    flex-grow: 1;
 
     input[type='text'] {
       padding: 0.7rem;
