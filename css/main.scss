@@ -46,7 +46,6 @@ main {
   grid-row-start: 3;
   margin: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
 
   form {
     display: flex;
@@ -54,7 +53,7 @@ main {
     flex-grow: 1;
 
     input[type='text'] {
-      padding: 0 0 0 0.7rem;
+      padding: 0.7rem;
       border-radius: 10px 0 0 10px;
       border: none;
       background-color: #fff;
