@@ -101,6 +101,7 @@ function searchRecipe(e) {
 
       if (recipe.length === 0) {
         recipeHeading.innerHTML = `<p>No results found for "${value}"</p>`;
+        recipeOutput.innerHTML = '';
       } else {
         recipeHeading.innerHTML = `<p>${recipe.length} results found for "${value}"</p>`;
 

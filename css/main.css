@@ -65,11 +65,12 @@ main h1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 .search-container form input[type='text'] {
-  padding: 0.7rem;
-  border-radius: 10px 0 0 10px;
+  padding: 0.7rem 5rem 0.7rem 0.7rem;
+  border-radius: 10px;
   border: none;
   background-color: #fff;
   font-size: 16px;
@@ -78,12 +79,19 @@ main h1 {
           flex-grow: 1;
 }
 
+.search-container form input[type='text']:focus {
+  outline: 1px solid blue;
+}
+
 .search-container form .search-btn {
   border: none;
   border-radius: 0 10px 10px 0;
   padding: 0.7rem;
   font-size: 16px;
-  background-color: #fff;
+  background-color: lightseagreen;
+  color: #fff;
+  position: absolute;
+  right: 0;
 }
 
 .search-container .random-btn {
