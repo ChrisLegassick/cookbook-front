@@ -4,14 +4,16 @@ const submit = document.getElementById('submit');
 const random = document.getElementById('random-btn');
 const create = document.getElementById('create-btn');
 const recipeName = document.getElementById('recipe-name');
-const recipeIngredients = document.getElementById('recipe-ingredients');
-const recipeInstructions = document.getElementById('recipe-instructions');
+const ingredients = document.getElementById('ingredients');
+const instructions = document.getElementById('instructions');
 const createRecipeSubmit = document.getElementById('create-recipe');
 const recipeHeading = document.getElementById('recipe-heading');
 const recipeOutput = document.getElementById('recipe-output');
 const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
 const createRecipeOverlay = document.getElementById('create-recipe-overlay');
+const addExtraIngredient = document.getElementById('add-extra-ingredient');
+const addExtraInstruction = document.getElementById('add-extra-instruction');
 const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
 let loading = false;
@@ -69,6 +71,22 @@ singleRecipeOutput.addEventListener('click', e => {
     recipeOverlay.classList.add('hide');
     mainContent.classList.remove('hide');
   }
+});
+
+addExtraIngredient.addEventListener('click', () => {
+  const createInput = document.createElement('input');
+  createInput.type = 'text';
+  createInput.name = 'recipe-ingredient';
+  createInput.className = 'recipe-ingredient';
+  ingredients.appendChild(createInput);
+});
+
+addExtraInstruction.addEventListener('click', () => {
+  const createInput = document.createElement('input');
+  createInput.type = 'text';
+  createInput.name = 'recipe-instruction';
+  createInput.className = 'recipe-instruction';
+  instructions.appendChild(createInput);
 });
 
 function loadingContent() {
@@ -195,14 +213,29 @@ function createRecipe() {
 
 function saveRecipe(e) {
   e.preventDefault();
+
+  let recipeIngredients = [];
+
+  const recipeIngredient = document.querySelectorAll('.recipe-ingredient');
+
+  recipeIngredient.forEach(recipeIngredient => {
+    recipeIngredients.push(recipeIngredient.value);
+  });
+
+  let recipeInstructions = [];
+
+  const recipeInstruction = document.querySelectorAll('.recipe-instruction');
+
+  recipeInstruction.forEach(recipeInstruction => {
+    recipeInstructions.push(recipeInstruction.value);
+  });
+
   const recipeNameValue = recipeName.value;
-  const recipeIngredientsValue = recipeIngredients.value;
-  const recipeInstructionsValue = recipeInstructions.value;
 
   const data = {
     name: recipeNameValue,
-    ingredients: recipeIngredientsValue,
-    instructions: recipeInstructionsValue
+    ingredients: recipeIngredients,
+    instructions: recipeInstructions
   };
 
   fetch(URL, {
