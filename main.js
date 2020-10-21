@@ -2,10 +2,16 @@ const mainContent = document.getElementById('main-content');
 const search = document.getElementById('search');
 const submit = document.getElementById('submit');
 const random = document.getElementById('random-btn');
+const create = document.getElementById('create-btn');
+const recipeName = document.getElementById('recipe-name');
+const recipeIngredients = document.getElementById('recipe-ingredients');
+const recipeInstructions = document.getElementById('recipe-instructions');
+const createRecipeSubmit = document.getElementById('create-recipe');
 const recipeHeading = document.getElementById('recipe-heading');
 const recipeOutput = document.getElementById('recipe-output');
 const singleRecipeOutput = document.getElementById('single-recipe-output');
 const recipeOverlay = document.getElementById('recipe-overlay');
+const createRecipeOverlay = document.getElementById('create-recipe-overlay');
 const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
 let loading = false;
@@ -30,6 +36,8 @@ const swiper = new Swiper('.swiper-container', {
 
 submit.addEventListener('submit', searchRecipe);
 random.addEventListener('click', getRandomRecipe);
+create.addEventListener('click', createRecipe);
+createRecipeSubmit.addEventListener('submit', saveRecipe);
 
 recipeOutput.addEventListener('click', e => {
   const path = e.path || (e.composedPath && e.composedPath());
@@ -62,6 +70,12 @@ singleRecipeOutput.addEventListener('click', e => {
     mainContent.classList.remove('hide');
   }
 });
+
+function loadingContent() {
+  if (loading === true) {
+    recipeOutput.innerHTML = '<p class="loading">Loading...</p>';
+  }
+}
 
 function getAllRecipes() {
   loading = true;
@@ -174,8 +188,32 @@ function getRecipeById(recipeID) {
   mainContent.classList.add('hide');
 }
 
-function loadingContent() {
-  if (loading === true) {
-    recipeOutput.innerHTML = '<p class="loading">Loading...</p>';
-  }
+function createRecipe() {
+  createRecipeOverlay.classList.remove('hide');
+  mainContent.classList.add('hide');
+}
+
+function saveRecipe(e) {
+  e.preventDefault();
+  const recipeNameValue = recipeName.value;
+  const recipeIngredientsValue = recipeIngredients.value;
+  const recipeInstructionsValue = recipeInstructions.value;
+
+  const data = {
+    name: recipeNameValue,
+    ingredients: recipeIngredientsValue,
+    instructions: recipeInstructionsValue
+  };
+
+  fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Success:', data);
+    });
 }
