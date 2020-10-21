@@ -73,6 +73,23 @@ singleRecipeOutput.addEventListener('click', e => {
   }
 });
 
+singleRecipeOutput.addEventListener('click', e => {
+  const path = e.path || (e.composedPath && e.composedPath());
+  const deleteBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('delete-btn');
+    } else {
+      return false;
+    }
+  });
+
+  if (deleteBtn) {
+    const singleRecipe = document.querySelector('.single-recipe');
+    const recipeID = singleRecipe.getAttribute('data-recipeid');
+    deleteRecipe(recipeID);
+  }
+});
+
 addExtraIngredient.addEventListener('click', () => {
   const createInput = document.createElement('input');
   createInput.type = 'text';
@@ -180,7 +197,7 @@ function getRecipeById(recipeID) {
     .then(data => {
       const recipe = data.data;
       singleRecipeOutput.innerHTML = `
-        <div class="single-recipe">
+        <div class="single-recipe" data-recipeID=${recipe._id}>
           <div class="single-recipe-heading">
             <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Back</button>
             <h2>${recipe.name}</h2>
@@ -198,6 +215,7 @@ function getRecipeById(recipeID) {
                 .map(instruction => `<li>${instruction}</li>`)
                 .join('')}
             </ul>
+            <button class="delete-btn" id="delete-btn"><i class="fas fa-trash"></i>Delete</button>
           </div>
         </div>
       `;
@@ -249,4 +267,14 @@ function saveRecipe(e) {
     .then(data => {
       console.log('Success:', data);
     });
+}
+
+async function deleteRecipe(recipeID) {
+  await fetch(URL + `/${recipeID}`, {
+    method: 'DELETE'
+  });
+  console.log(`Deleted ${recipeID}`);
+  recipeOverlay.classList.add('hide');
+  mainContent.classList.remove('hide');
+  location.reload();
 }
