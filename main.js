@@ -90,6 +90,23 @@ singleRecipeOutput.addEventListener('click', e => {
   }
 });
 
+singleRecipeOutput.addEventListener('click', e => {
+  const path = e.path || (e.composedPath && e.composedPath());
+  const editBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('edit-btn');
+    } else {
+      return false;
+    }
+  });
+
+  if (editBtn) {
+    const singleRecipe = document.querySelector('.single-recipe');
+    const recipeID = singleRecipe.getAttribute('data-recipeid');
+    editRecipe(recipeID);
+  }
+});
+
 addExtraIngredient.addEventListener('click', () => {
   const createInput = document.createElement('input');
   createInput.type = 'text';
@@ -200,6 +217,7 @@ function getRecipeById(recipeID) {
         <div class="single-recipe" data-recipeID=${recipe._id}>
           <div class="single-recipe-heading">
             <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Back</button>
+            <button class="edit-btn" id="edit-btn">Edit</button>
             <h2>${recipe.name}</h2>
           </div>
           <div class="single-recipe-content">
@@ -277,4 +295,29 @@ async function deleteRecipe(recipeID) {
   recipeOverlay.classList.add('hide');
   mainContent.classList.remove('hide');
   location.reload();
+}
+
+function editRecipe(recipeID) {
+  createRecipeOverlay.classList.remove('hide');
+  fetch(URL + `/${recipeID}`)
+    .then(res => res.json())
+    .then(data => {
+      const recipe = data.data;
+      recipeName.value = recipe.name;
+      recipe.ingredients.forEach(ingredient => {
+        const createInput = document.createElement('input');
+        createInput.type = 'text';
+        createInput.name = 'recipe-ingredient';
+        createInput.className = 'recipe-ingredient';
+        createInput.value = ingredient;
+        ingredients.appendChild(createInput);
+      });
+      recipe.instructions.forEach(instruction => {
+        const createTextArea = document.createElement('textarea');
+        createTextArea.name = 'recipe-instruction';
+        createTextArea.className = 'recipe-instruction';
+        createTextArea.value = instruction;
+        instructions.appendChild(createTextArea);
+      });
+    });
 }
