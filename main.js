@@ -250,7 +250,7 @@ function createRecipe() {
   state = 'newRecipe';
 }
 
-async function saveRecipe(e) {
+function saveRecipe(e) {
   e.preventDefault();
 
   let recipeIngredients = [];
@@ -293,7 +293,7 @@ async function saveRecipe(e) {
       });
   } else {
     const recipeID = document
-      .getElementById('test')
+      .getElementById('recipe-data-ID')
       .getAttribute('data-recipe');
     fetch(URL + `/${recipeID}`, {
       method: 'PUT',
