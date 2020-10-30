@@ -51,27 +51,37 @@
         <div class="single-recipe-container" id="single-recipe-output"></div>
       </div>
       <div class="create-recipe-overlay hide" id="create-recipe-overlay">
+        <div id="recipe-data-ID"></div>
         <form class="create-form" id="create-recipe">
-          <input type="text" name="recipe-name" id="recipe-name" />
+          <input
+            type="text"
+            name="recipe-name"
+            id="recipe-name"
+            placeholder="Recipe Name..."
+          />
           <div class="ingredient-container">
             <div id="ingredients">
-              <input
+              <!-- <input
                 type="text"
                 name="recipe-ingredient"
                 class="recipe-ingredient"
-              />
+              /> -->
             </div>
-            <div id="add-extra-ingredient">+</div>
+            <button type="button" id="add-extra-ingredient">
+              Add Ingredient
+            </button>
           </div>
           <div class="instruction-container">
             <div id="instructions">
-              <input
+              <!-- <input
                 type="text"
                 name="recipe-instruction"
                 class="recipe-instruction"
-              />
+              /> -->
             </div>
-            <div id="add-extra-instruction">+</div>
+            <button type="button" id="add-extra-instruction">
+              Add Instruction
+            </button>
           </div>
           <button type="submit" class="save-btn">
             Save

@@ -17,6 +17,7 @@ const addExtraInstruction = document.getElementById('add-extra-instruction');
 const URL = 'https://legassick-recipes.herokuapp.com/api/v1/recipes';
 
 let loading = false;
+let state = '';
 
 const swiper = new Swiper('.swiper-container', {
   init: false,
@@ -112,15 +113,16 @@ addExtraIngredient.addEventListener('click', () => {
   createInput.type = 'text';
   createInput.name = 'recipe-ingredient';
   createInput.className = 'recipe-ingredient';
+  createInput.placeholder = 'Ingredient';
   ingredients.appendChild(createInput);
 });
 
 addExtraInstruction.addEventListener('click', () => {
-  const createInput = document.createElement('input');
-  createInput.type = 'text';
-  createInput.name = 'recipe-instruction';
-  createInput.className = 'recipe-instruction';
-  instructions.appendChild(createInput);
+  const createTextArea = document.createElement('textarea');
+  createTextArea.name = 'recipe-instruction';
+  createTextArea.className = 'recipe-instruction';
+  createTextArea.placeholder = 'Instruction';
+  instructions.appendChild(createTextArea);
 });
 
 function loadingContent() {
@@ -245,9 +247,10 @@ function getRecipeById(recipeID) {
 function createRecipe() {
   createRecipeOverlay.classList.remove('hide');
   mainContent.classList.add('hide');
+  state = 'newRecipe';
 }
 
-function saveRecipe(e) {
+async function saveRecipe(e) {
   e.preventDefault();
 
   let recipeIngredients = [];
@@ -274,35 +277,58 @@ function saveRecipe(e) {
     instructions: recipeInstructions
   };
 
-  fetch(URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(res => res.json())
-    .then(data => {
-      console.log('Success:', data);
-    });
+  if (state === 'newRecipe') {
+    fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Success:', data);
+        state = '';
+        location.reload();
+      });
+  } else {
+    const recipeID = document
+      .getElementById('test')
+      .getAttribute('data-recipe');
+    fetch(URL + `/${recipeID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Success:', data);
+        state = '';
+        location.reload();
+      });
+  }
 }
 
 async function deleteRecipe(recipeID) {
   await fetch(URL + `/${recipeID}`, {
     method: 'DELETE'
   });
-  console.log(`Deleted ${recipeID}`);
   recipeOverlay.classList.add('hide');
   mainContent.classList.remove('hide');
   location.reload();
 }
 
 function editRecipe(recipeID) {
+  state = 'editRecipe';
   createRecipeOverlay.classList.remove('hide');
   fetch(URL + `/${recipeID}`)
     .then(res => res.json())
     .then(data => {
       const recipe = data.data;
+      const recipeDataID = document.getElementById('recipe-data-ID');
+      recipeDataID.dataset.recipe = recipeID;
       recipeName.value = recipe.name;
       recipe.ingredients.forEach(ingredient => {
         const createInput = document.createElement('input');
