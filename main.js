@@ -43,70 +43,99 @@ create.addEventListener('click', createRecipe);
 createRecipeSubmit.addEventListener('submit', saveRecipe);
 
 recipeOutput.addEventListener('click', e => {
-  const path = e.path || (e.composedPath && e.composedPath());
-  const recipe = path.find(item => {
-    if (item.classList) {
-      return item.classList.contains('recipe');
-    } else {
-      return false;
+  const recipe = document.querySelectorAll('.recipe');
+  recipe.forEach(recipe => {
+    if (e.target === recipe) {
+      const recipeID = recipe.getAttribute('data-recipeid');
+      getRecipeById(recipeID);
     }
   });
-
-  if (recipe) {
-    const recipeID = recipe.getAttribute('data-recipeid');
-    getRecipeById(recipeID);
-  }
 });
 
-singleRecipeOutput.addEventListener('click', e => {
-  const path = e.path || (e.composedPath && e.composedPath());
-  const backBtn = path.find(item => {
-    if (item.classList) {
-      return item.classList.contains('back-btn');
-    } else {
-      return false;
-    }
-  });
+// recipeOutput.addEventListener('click', e => {
+//   const path = e.path || (e.composedPath && e.composedPath());
+//   const recipe = path.find(item => {
+//     if (item.classList) {
+//       return item.classList.contains('recipe');
+//     } else {
+//       return false;
+//     }
+//   });
 
-  if (backBtn) {
+//   if (recipe) {
+//     const recipeID = recipe.getAttribute('data-recipeid');
+//     getRecipeById(recipeID);
+//   }
+// });
+
+// singleRecipeOutput.addEventListener('click', e => {
+//   const path = e.path || (e.composedPath && e.composedPath());
+//   const backBtn = path.find(item => {
+//     if (item.classList) {
+//       return item.classList.contains('back-btn');
+//     } else {
+//       return false;
+//     }
+//   });
+
+//   if (backBtn) {
+//     recipeOverlay.classList.add('hide');
+//     mainContent.classList.remove('hide');
+//   }
+// });
+
+// singleRecipeOutput.addEventListener('click', e => {
+//   const path = e.path || (e.composedPath && e.composedPath());
+//   const deleteBtn = path.find(item => {
+//     if (item.classList) {
+//       return item.classList.contains('delete-btn');
+//     } else {
+//       return false;
+//     }
+//   });
+
+//   if (deleteBtn) {
+//     const singleRecipe = document.querySelector('.single-recipe');
+//     const recipeID = singleRecipe.getAttribute('data-recipeid');
+//     deleteRecipe(recipeID);
+//   }
+// });
+singleRecipeOutput.addEventListener('click', e => {
+  const backBtn = document.getElementById('back-btn');
+  const deleteBtn = document.getElementById('delete-btn');
+  const editBtn = document.getElementById('edit-btn');
+  const singleRecipe = document.querySelector('.single-recipe');
+  const recipeID = singleRecipe.getAttribute('data-recipeid');
+
+  if (e.target === backBtn) {
     recipeOverlay.classList.add('hide');
     mainContent.classList.remove('hide');
   }
-});
-
-singleRecipeOutput.addEventListener('click', e => {
-  const path = e.path || (e.composedPath && e.composedPath());
-  const deleteBtn = path.find(item => {
-    if (item.classList) {
-      return item.classList.contains('delete-btn');
-    } else {
-      return false;
-    }
-  });
-
-  if (deleteBtn) {
-    const singleRecipe = document.querySelector('.single-recipe');
-    const recipeID = singleRecipe.getAttribute('data-recipeid');
-    deleteRecipe(recipeID);
+  if (e.target === deleteBtn) {
+    showAlertMessage(recipeID);
   }
-});
-
-singleRecipeOutput.addEventListener('click', e => {
-  const path = e.path || (e.composedPath && e.composedPath());
-  const editBtn = path.find(item => {
-    if (item.classList) {
-      return item.classList.contains('edit-btn');
-    } else {
-      return false;
-    }
-  });
-
-  if (editBtn) {
-    const singleRecipe = document.querySelector('.single-recipe');
-    const recipeID = singleRecipe.getAttribute('data-recipeid');
+  if (e.target === editBtn) {
+    state = 'editRecipe';
     editRecipe(recipeID);
   }
 });
+
+// singleRecipeOutput.addEventListener('click', e => {
+//   const path = e.path || (e.composedPath && e.composedPath());
+//   const editBtn = path.find(item => {
+//     if (item.classList) {
+//       return item.classList.contains('edit-btn');
+//     } else {
+//       return false;
+//     }
+//   });
+
+//   if (editBtn) {
+//     const singleRecipe = document.querySelector('.single-recipe');
+//     const recipeID = singleRecipe.getAttribute('data-recipeid');
+//     editRecipe(recipeID);
+//   }
+// });
 
 addExtraIngredient.addEventListener('click', () => {
   const createInput = document.createElement('input');
@@ -311,17 +340,36 @@ function saveRecipe(e) {
   }
 }
 
+function showAlertMessage(recipeID) {
+  const alertMessageContainer = document.getElementById(
+    'alert-message-container'
+  );
+  const cancelBtn = document.getElementById('cancel-btn');
+  const confirmBtn = document.getElementById('confirm-btn');
+  const alertMessage = document.getElementById('alert-message');
+  alertMessageContainer.classList.remove('hide');
+  alertMessageContainer.classList.add('show-alert-message');
+  cancelBtn.addEventListener('click', () => {
+    alertMessageContainer.classList.add('hide');
+    alertMessageContainer.classList.remove('show-alert-message');
+  });
+  confirmBtn.addEventListener('click', () => {
+    alertMessage.innerText = 'Recipe deleted';
+    setTimeout(() => {
+      deleteRecipe(recipeID);
+    }, 2000);
+  });
+}
+
 async function deleteRecipe(recipeID) {
   await fetch(URL + `/${recipeID}`, {
     method: 'DELETE'
   });
-  recipeOverlay.classList.add('hide');
-  mainContent.classList.remove('hide');
+  state = '';
   location.reload();
 }
 
 function editRecipe(recipeID) {
-  state = 'editRecipe';
   createRecipeOverlay.classList.remove('hide');
   fetch(URL + `/${recipeID}`)
     .then(res => res.json())

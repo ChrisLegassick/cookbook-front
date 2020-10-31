@@ -248,4 +248,36 @@ main h1 {
           flex-direction: column;
   margin: 1rem 2rem;
 }
+
+.alert-message-container {
+  background-color: lightgray;
+  position: absolute;
+  bottom: 0;
+  height: 50vh;
+  width: 100%;
+  z-index: 10;
+  border-radius: 30px 30px 0 0;
+  -webkit-transform: translateY(200px);
+          transform: translateY(200px);
+  opacity: 0;
+}
+
+.show-alert-message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
 /*# sourceMappingURL=main.css.map */
