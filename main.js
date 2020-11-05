@@ -43,99 +43,63 @@ create.addEventListener('click', createRecipe);
 createRecipeSubmit.addEventListener('submit', saveRecipe);
 
 recipeOutput.addEventListener('click', e => {
-  const recipe = document.querySelectorAll('.recipe');
-  recipe.forEach(recipe => {
-    if (e.target === recipe) {
-      const recipeID = recipe.getAttribute('data-recipeid');
-      getRecipeById(recipeID);
+  const path = e.path || (e.composedPath && e.composedPath());
+  const recipe = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('recipe');
+    } else {
+      return false;
     }
   });
+
+  if (recipe) {
+    const recipeID = recipe.getAttribute('data-recipeid');
+    getRecipeById(recipeID);
+  }
 });
 
-// recipeOutput.addEventListener('click', e => {
-//   const path = e.path || (e.composedPath && e.composedPath());
-//   const recipe = path.find(item => {
-//     if (item.classList) {
-//       return item.classList.contains('recipe');
-//     } else {
-//       return false;
-//     }
-//   });
-
-//   if (recipe) {
-//     const recipeID = recipe.getAttribute('data-recipeid');
-//     getRecipeById(recipeID);
-//   }
-// });
-
-// singleRecipeOutput.addEventListener('click', e => {
-//   const path = e.path || (e.composedPath && e.composedPath());
-//   const backBtn = path.find(item => {
-//     if (item.classList) {
-//       return item.classList.contains('back-btn');
-//     } else {
-//       return false;
-//     }
-//   });
-
-//   if (backBtn) {
-//     recipeOverlay.classList.add('hide');
-//     mainContent.classList.remove('hide');
-//   }
-// });
-
-// singleRecipeOutput.addEventListener('click', e => {
-//   const path = e.path || (e.composedPath && e.composedPath());
-//   const deleteBtn = path.find(item => {
-//     if (item.classList) {
-//       return item.classList.contains('delete-btn');
-//     } else {
-//       return false;
-//     }
-//   });
-
-//   if (deleteBtn) {
-//     const singleRecipe = document.querySelector('.single-recipe');
-//     const recipeID = singleRecipe.getAttribute('data-recipeid');
-//     deleteRecipe(recipeID);
-//   }
-// });
 singleRecipeOutput.addEventListener('click', e => {
-  const backBtn = document.getElementById('back-btn');
-  const deleteBtn = document.getElementById('delete-btn');
-  const editBtn = document.getElementById('edit-btn');
+  const path = e.path || (e.composedPath && e.composedPath());
   const singleRecipe = document.querySelector('.single-recipe');
   const recipeID = singleRecipe.getAttribute('data-recipeid');
+  const backBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('back-btn');
+    } else {
+      return false;
+    }
+  });
 
-  if (e.target === backBtn) {
+  const deleteBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('delete-btn');
+    } else {
+      return false;
+    }
+  });
+
+  const editBtn = path.find(item => {
+    if (item.classList) {
+      return item.classList.contains('edit-btn');
+    } else {
+      return false;
+    }
+  });
+
+  if (backBtn) {
     recipeOverlay.classList.add('hide');
     mainContent.classList.remove('hide');
   }
-  if (e.target === deleteBtn) {
+
+  if (deleteBtn) {
     showAlertMessage(recipeID);
   }
-  if (e.target === editBtn) {
+
+  if (editBtn) {
     state = 'editRecipe';
     editRecipe(recipeID);
   }
 });
-
-// singleRecipeOutput.addEventListener('click', e => {
-//   const path = e.path || (e.composedPath && e.composedPath());
-//   const editBtn = path.find(item => {
-//     if (item.classList) {
-//       return item.classList.contains('edit-btn');
-//     } else {
-//       return false;
-//     }
-//   });
-
-//   if (editBtn) {
-//     const singleRecipe = document.querySelector('.single-recipe');
-//     const recipeID = singleRecipe.getAttribute('data-recipeid');
-//     editRecipe(recipeID);
-//   }
-// });
 
 addExtraIngredient.addEventListener('click', () => {
   const createInput = document.createElement('input');
