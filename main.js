@@ -97,6 +97,7 @@ singleRecipeOutput.addEventListener('click', e => {
 
   if (editBtn) {
     state = 'editRecipe';
+    recipeOverlay.classList.add('hide');
     editRecipe(recipeID);
   }
 });
@@ -142,7 +143,7 @@ function getAllRecipes() {
         `
         )
         .join('');
-      swiper.params.loopedSlides = `${recipe.length}`;
+      // swiper.params.loopedSlides = `${recipe.length}`;
       swiper.init();
       loading = false;
     });
@@ -178,7 +179,7 @@ function searchRecipe(e) {
         `
           )
           .join('');
-        swiper.params.loopedSlides = `${recipe.length}`;
+        // swiper.params.loopedSlides = `${recipe.length}`;
         loading = false;
       }
       search.value = '';
@@ -211,8 +212,10 @@ function getRecipeById(recipeID) {
       singleRecipeOutput.innerHTML = `
         <div class="single-recipe" data-recipeID=${recipe._id}>
           <div class="single-recipe-heading">
-            <button class="back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Back</button>
-            <button class="edit-btn" id="edit-btn">Edit</button>
+            <div class="heading-btns">
+              <button class="btn back-btn" id="back-btn"><i class="fas fa-arrow-left"></i>Back</button>
+              <button class="btn edit-btn" id="edit-btn"><i class="fas fa-edit"></i>Edit</button>
+            </div>
             <h2>${recipe.name}</h2>
           </div>
           <div class="single-recipe-content">
@@ -228,7 +231,7 @@ function getRecipeById(recipeID) {
                 .map(instruction => `<li>${instruction}</li>`)
                 .join('')}
             </ul>
-            <button class="delete-btn" id="delete-btn"><i class="fas fa-trash"></i>Delete</button>
+            <button class="btn delete-btn" id="delete-btn"><i class="fas fa-trash"></i>Delete</button>
           </div>
         </div>
       `;
