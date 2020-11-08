@@ -130,26 +130,26 @@ function getAllRecipes() {
   loadingContent();
   fetch(URL)
     .then(res => res.json())
-    .then(data => {
-      const recipe = data.data;
+    .then(data => showRecipes(data));
+}
 
-      recipeOutput.innerHTML = recipe
-        .map(
-          recipe => `
+getAllRecipes();
+
+function showRecipes(data) {
+  const recipe = data.data;
+  recipeOutput.innerHTML = recipe
+    .map(
+      recipe => `
           <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
             <h2>${recipe.name}</h2>
             <p>Tap to view recipe</p>
           </div>
         `
-        )
-        .join('');
-      // swiper.params.loopedSlides = `${recipe.length}`;
-      swiper.init();
-      loading = false;
-    });
+    )
+    .join('');
+  swiper.init();
+  loading = false;
 }
-
-getAllRecipes();
 
 function searchRecipe(e) {
   e.preventDefault();
@@ -168,19 +168,7 @@ function searchRecipe(e) {
         recipeHeading.innerHTML = `<p>${recipe.length} results found for "${value}"</p>`;
 
         swiper.removeAllSlides();
-
-        recipeOutput.innerHTML = recipe
-          .map(
-            recipe => `
-          <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
-            <h2>${recipe.name}</h2>
-            <p>Tap to view recipe</p>
-          </div>
-        `
-          )
-          .join('');
-        // swiper.params.loopedSlides = `${recipe.length}`;
-        loading = false;
+        showRecipes(data);
       }
       search.value = '';
     });
@@ -191,16 +179,7 @@ function getRandomRecipe() {
   loadingContent();
   fetch(URL + '/random')
     .then(res => res.json())
-    .then(data => {
-      const recipe = data.data[0];
-      recipeOutput.innerHTML = `
-          <div class="recipe swiper-slide" data-recipeID="${recipe._id}">
-            <h2>${recipe.name}</h2>
-            <p>Tap to view recipe</p>
-          </div>
-        `;
-      loading = false;
-    });
+    .then(data => showRecipes(data));
   recipeHeading.innerHTML = '';
 }
 
