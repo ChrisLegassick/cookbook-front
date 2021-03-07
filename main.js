@@ -24,7 +24,7 @@ const swiper = new Swiper('.swiper-container', {
   effect: 'coverflow',
   grabCursor: true,
   centeredSlides: true,
-  slidesPerView: 'auto',
+  slidesPerView: '1.6',
   loop: true,
   observer: true,
   watchOverflow: true,
